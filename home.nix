@@ -54,6 +54,22 @@
   home.sessionVariables = {
   };
 
-  # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  programs.git = {
+    enable = true;
+    userName = "Jonathan Raphaelson";
+    userEmail = "jonathan@ada-marie.com";
+
+    signing = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAa396Z/jGhCHAYkVn2KOouarbCBim0NTJgcURkVEvVQ";
+      gpgPath = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+      signByDefault = true;
+    };
+
+    extraConfig = {
+      init = {
+        defaultBranch = "main";
+      };
+    };
+  };
 }
