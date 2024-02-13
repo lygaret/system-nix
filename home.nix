@@ -60,15 +60,22 @@
     userName = "Jonathan Raphaelson";
     userEmail = "jonathan@ada-marie.com";
 
-    signing = {
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAa396Z/jGhCHAYkVn2KOouarbCBim0NTJgcURkVEvVQ";
-      gpgPath = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-      signByDefault = true;
-    };
-
     extraConfig = {
       init = {
         defaultBranch = "main";
+      };
+
+      user.signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAa396Z/jGhCHAYkVn2KOouarbCBim0NTJgcURkVEvVQ";
+
+      commit.gpgSign = true;
+      tag.gpgSign = true;
+
+      gpg = {
+        format = "ssh";
+
+        ssh = {
+          program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+        };
       };
     };
   };
