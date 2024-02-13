@@ -1,0 +1,23 @@
+# nix for some reason doesn't include the profile entry
+source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+
+# environment management from home-manager
+source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+
+# aws amplify hates nix
+path+=(~/.amplify/bin)
+
+# nix profile path
+path+=(~/.nix-profile/bin)
+
+export PATH
+
+export VISUAL=$HOME/.zshrc.d/emacsclient-visual-wrapper.zsh
+export EMACS_BIN_DIR=/Applications/Emacs.app/Contents/MacOS
+
+# zsh plugins
+fpath+=($HOME/local/system/zsh.d/plugins)
+
+# install shell hooks (path overrides)
+eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(direnv hook zsh)"

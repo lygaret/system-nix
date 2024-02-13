@@ -1,0 +1,50 @@
+local devenv_msg=""
+
+prompt_faraday_precmd () {
+    print -Pn '\e]0;%~\a' # show the full path in the window title
+    vcs_info              # ensure vcs plugin has pulled info
+
+    if [ -n "$DEVENV_ROOT" ]; then
+        devenv_msg="%F{#888888}(dev)%f"
+    fi
+
+    local newline=$'\n'
+    PROMPT="${newline}%(?.%F{#9999bb}.%F{#ff8888}) > %f"
+    RPROMPT="${devenv_msg}${vcs_info_msg_0_} %F{#99ccff}%2~%f"
+}
+
+prompt_faraday_preexec () {
+    # shows the current dir and executed command
+    # in the title when a process is active
+    print -Pn "\e]0;"
+    echo -nE "$PWD:t: $2"
+    print -Pn "\a"
+}
+
+prompt_faraday_setup () {
+
+    autoload -Uz add-zsh-hook
+    autoload -Uz vcs_info
+
+    # add-zsh-hook precmd prompt_faraday_precmd_windowtitle
+    add-zsh-hook precmd prompt_faraday_precmd
+    add-zsh-hook preexec prompt_faraday_preexec
+
+    zstyle ':vcs_info:*' enable git
+    zstyle ':vcs_info:*' use-simple true
+    zstyle ':vcs_info:*' check-for-change false
+    zstyle ':vcs_info:git*' formats ' %b'
+    zstyle ':vcs_info:git*' actionformats ' %b|%a'
+
+    # things I want in a prompt
+    # * compressed pwd
+    # * last command status
+    # * git branch / dirty-bit
+    # * devenv indicator
+    # * nix-shell indicator
+
+    PROMPT='%(?.%F{#9999bb}.%F{#ff8888}) > %f'
+    RPROMPT='${devenv_msg}${vcs_info_msg_0_} %F{#99ccff}%2~%f'
+}
+
+prompt_faraday_setup "$@"

@@ -1,0 +1,47 @@
+fpath+=($HOME/local/system/zsh.d)
+
+autoload -Uz compinit; compinit
+autoload -Uz promptinit; promptinit
+
+prompt faraday
+
+source $HOMEBREW_PREFIX/share/antigen/antigen.zsh
+antigen bundle nix-community/nix-zsh-completions
+antigen apply
+
+# git aliases
+
+alias gs='git status'
+
+# emacs aliases
+# the wrapper script just adds a default -c argument
+
+alias emacs="${EMACS_BIN_DIR}/Emacs"
+alias et="${EMACS_BIN_DIR}/bin/emacsclient -t"
+alias ec="${EMACS_BIN_DIR}/bin/emacsclient -n -c"
+alias ecwait="${EMACS_BIN_DIR}/bin/emacsclient -c"
+
+# bat is a syntax highlighting cat
+
+alias cat="bat --theme=base16-256"
+
+# eza aliases
+
+autoload -Uz eza_setup; eza_setup
+
+local eza_params=(
+  "--color-scale=all"
+  "--color-scale-mode=gradient"
+  "--group-directories-first"
+  "--smart-group"
+  "--git"
+)
+
+alias l='eza -G --git-ignore ${eza_params}'
+alias la='eza -lbhHigUmuSa'
+alias ll='eza --all --header --long ${eza_params}'
+alias llm='eza --all --header --long --sort=modified ${eza_params}'
+alias ls='eza -l ${eza_params}'
+alias lx='eza -lbhHigUmuSa@'
+alias lt='eza --tree'
+alias tree='eza --tree'
