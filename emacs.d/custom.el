@@ -9,6 +9,8 @@
  '(indent-tabs-mode nil)
  '(package-selected-packages
    '(jtsx base16-theme base16-themes envrc-mode yaml-mode which-key vertico vc-use-package unicode-fonts typescript-mode treesit-parser-manager treemacs-magit treemacs-icons-dired treemacs-evil spacious-padding solaire-mode sly-stepper sly-quicklisp sly-asdf selected-window-accent-mode rustic robe project-tab-groups paren-face org-pretty-table org-gtd orderless olivetti no-littering nix-mode moonscript modus-themes minions mermaid-ts-mode marginalia lsp-mode ligature janet-mode highlight-parentheses graphql-ts-mode geiser-racket geiser-guile geiser-chibi fennel-mode feebleline exec-path-from-shell evil-surround evil-lisp-state evil-leader evil-commentary envrc el-easydraw ef-themes edraw edit-indirect dune dockerfile-mode csv-mode corfu company breadcrumb bespoke-themes bespoke-modeline astro-ts-mode all-the-icons afternoon-theme))
+ '(package-vc-selected-packages
+   '((vc-use-package :vc-backend Git :url "https://github.com/slotThe/vc-use-package")))
  '(x-bitmap-file-path
    '("/opt/homebrew/Cellar/xbitmaps/1.1.3/include/X11/bitmaps")))
 (custom-set-faces

@@ -4,17 +4,22 @@
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    devenv = {
+      url = "github:cachix/devenv";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = { self, nixpkgs, devenv, home-manager, ... }:
     let
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
       lib = nixpkgs.lib;
+      devenvPkgs = devenv.packages.${system};
       runtimeRoot = "/Users/jonathan/local/system";
       runtimePath = path:
         let
@@ -36,7 +41,9 @@
 
         # use extraSpecialArgs
         # to pass through arguments to home.nix
-        extraSpecialArgs = { inherit runtimePath; };
+        extraSpecialArgs = {
+          inherit devenvPkgs system runtimePath; 
+        };
       };
     };
 }

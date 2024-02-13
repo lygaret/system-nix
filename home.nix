@@ -1,13 +1,15 @@
-{ config, pkgs, runtimePath, ... }:
+{ config, pkgs, devenvPkgs, system, runtimePath, ... }:
 {
   home.username = "jonathan";
   home.homeDirectory = "/Users/jonathan";
   home.stateVersion = "23.11"; # Please read docs
 
   home.packages = with pkgs; [
-    cachix
     direnv
     node2nix
+
+    cachix
+    devenvPkgs.default
 
     git
     pandoc
@@ -46,7 +48,7 @@
     ".emacs.d/custom.el".source = linkfile (runtimePath ./emacs.d/custom.el);
 
     ".zshrc".source             = linkfile (runtimePath ./zsh.d/zshrc);
-    ".zprofile".source          = linkfile (runtimePath ./zsh.d/zprofile);
+    ".zshenv".source            = linkfile (runtimePath ./zsh.d/zshenv);
   };
 
   home.sessionVariables = {

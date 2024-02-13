@@ -1,4 +1,5 @@
-fpath+=($HOME/local/system/zsh.d)
+fpath+=($HOME/local/system/zsh.d/functions)
+fpath+=($HOME/local/system/zsh.d/plugins)
 
 autoload -Uz compinit; compinit
 autoload -Uz promptinit; promptinit
@@ -6,6 +7,7 @@ autoload -Uz promptinit; promptinit
 prompt faraday
 
 source $HOMEBREW_PREFIX/share/antigen/antigen.zsh
+antigen bundle chisui/zsh-nix-shell
 antigen bundle nix-community/nix-zsh-completions
 antigen apply
 
