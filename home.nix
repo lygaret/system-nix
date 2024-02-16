@@ -19,6 +19,7 @@
     eza
     htop
     neofetch
+    jq
   ];
 
   launchd.enable = true;
