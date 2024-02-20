@@ -6,19 +6,19 @@
 
   home.packages = with pkgs; [
     direnv
-    node2nix
-
     cachix
     devenvPkgs.default
+    node2nix
+
+    bat   # cat with source highlighting
+    delta # diff with source highlighting, same color schemes as bat
+    eza   # better ls
+    neofetch
 
     git
+    htop
     pandoc
     ripgrep
-
-    bat
-    eza
-    htop
-    neofetch
     jq
   ];
 
@@ -45,6 +45,8 @@
   home.file = let
     linkfile = config.lib.file.mkOutOfStoreSymlink;
   in {
+    ".config/git/config".source = linkfile (runtimePath ./git.d/config);
+
     ".emacs.d/init.el".source   = linkfile (runtimePath ./emacs.d/init.el);
     ".emacs.d/custom.el".source = linkfile (runtimePath ./emacs.d/custom.el);
 
@@ -56,28 +58,4 @@
   };
 
   programs.home-manager.enable = true;
-  programs.git = {
-    enable = true;
-    userName = "Jonathan Raphaelson";
-    userEmail = "jonathan@ada-marie.com";
-
-    extraConfig = {
-      init = {
-        defaultBranch = "main";
-      };
-
-      user.signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAa396Z/jGhCHAYkVn2KOouarbCBim0NTJgcURkVEvVQ";
-
-      commit.gpgSign = true;
-      tag.gpgSign = true;
-
-      gpg = {
-        format = "ssh";
-
-        ssh = {
-          program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-        };
-      };
-    };
-  };
 }
