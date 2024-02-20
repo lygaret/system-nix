@@ -1,4 +1,4 @@
-system configuration
+dots and home-local packgaes configuration
 
 * nix for package management
 * home-manager for files and shell environment
