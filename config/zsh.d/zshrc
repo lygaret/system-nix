@@ -1,5 +1,5 @@
-fpath+=($HOME/local/system/zsh.d/functions)
-fpath+=($HOME/local/system/zsh.d/plugins)
+fpath+=($HOME/local/system/config/zsh.d/functions)
+fpath+=($HOME/local/system/config/zsh.d/plugins)
 
 autoload -Uz compinit; compinit
 autoload -Uz promptinit; promptinit

@@ -10,11 +10,10 @@ path+=(~/.nix-profile/bin)
 export PATH
 
 # fpath
-fpath+=(~/local/system/zsh.d/plugins)
-fpath+=(~/local/system/zsh.d/functions)
+fpath+=(~/local/system/config/zsh.d/plugins)
+fpath+=(~/local/system/config/zsh.d/functions)
 
 # editor env
-export VISUAL=$HOME/.zshrc.d/emacsclient-visual-wrapper.zsh
 export EMACS_BIN_DIR=/Applications/Emacs.app/Contents/MacOS
 
 # install shell hooks (path overrides)

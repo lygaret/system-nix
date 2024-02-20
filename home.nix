@@ -45,15 +45,15 @@
   home.file = let
     linkfile = config.lib.file.mkOutOfStoreSymlink;
   in {
-    "local/.editorconfig".source = linkfile (runtimePath ./editorconfig);
+    "local/.editorconfig".source = linkfile (runtimePath ./config/editorconfig);
 
-    ".config/git/config".source  = linkfile (runtimePath ./git.d/config);
+    ".config/git/config".source  = linkfile (runtimePath ./config/git.d/config);
 
-    ".emacs.d/init.el".source   = linkfile (runtimePath ./emacs.d/init.el);
-    ".emacs.d/custom.el".source = linkfile (runtimePath ./emacs.d/custom.el);
+    ".emacs.d/init.el".source   = linkfile (runtimePath ./config/emacs.d/init.el);
+    ".emacs.d/custom.el".source = linkfile (runtimePath ./config/emacs.d/custom.el);
 
-    ".zshrc".source             = linkfile (runtimePath ./zsh.d/zshrc);
-    ".zshenv".source            = linkfile (runtimePath ./zsh.d/zshenv);
+    ".zshrc".source             = linkfile (runtimePath ./config/zsh.d/zshrc);
+    ".zshenv".source            = linkfile (runtimePath ./config/zsh.d/zshenv);
   };
 
   home.sessionVariables = {
