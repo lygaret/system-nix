@@ -19,3 +19,10 @@ to apply globally:
 to run tools:
 
 - `nix run localsys#tools/httpbin -- --bind 0.0.0.0:12345`
+
+---
+
+other tools and plugins
+
+- [sideberry for firefox](https://addons.mozilla.org/en-US/firefox/addon/sidebery/)
+- [obsidian](https://obsidian.md) for notes
