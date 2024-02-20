@@ -45,7 +45,9 @@
   home.file = let
     linkfile = config.lib.file.mkOutOfStoreSymlink;
   in {
-    ".config/git/config".source = linkfile (runtimePath ./git.d/config);
+    "local/.editorconfig".source = linkfile (runtimePath ./editorconfig);
+
+    ".config/git/config".source  = linkfile (runtimePath ./git.d/config);
 
     ".emacs.d/init.el".source   = linkfile (runtimePath ./emacs.d/init.el);
     ".emacs.d/custom.el".source = linkfile (runtimePath ./emacs.d/custom.el);
