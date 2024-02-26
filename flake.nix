@@ -2,24 +2,41 @@
   description = "Home Manager configuration of jonathan";
 
   inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    devenv = {
-      url = "github:cachix/devenv";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+    devenv = {
+      url = "github:cachix/devenv";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+    emacs-lsp-booster = {
+      url = "github:slotThe/emacs-lsp-booster-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
-  outputs = { self, nixpkgs, devenv, home-manager, ... }:
+  outputs = { self, nixpkgs, devenv, home-manager, emacs-lsp-booster, ... }:
     let
       system = "aarch64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
-      lib = nixpkgs.lib;
-      devenvPkgs = devenv.packages.${system};
+      pkgs   = nixpkgs.legacyPackages.${system};
+      lib    = nixpkgs.lib;
+
+      home-overlays = {
+        nixpkgs.overlays = [
+          devenv.overlays.default
+          emacs-lsp-booster.overlays.default
+        ];
+      };
+
       runtimeRoot = "/Users/jonathan/local/system";
       runtimePath = path:
         let
@@ -37,12 +54,15 @@
 
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
-        modules = [ ./home.nix ];
+        modules = [
+          ./home.nix
+          home-overlays
+        ];
 
         # use extraSpecialArgs
         # to pass through arguments to home.nix
         extraSpecialArgs = {
-          inherit devenvPkgs system runtimePath; 
+          inherit system runtimePath;
         };
       };
     };

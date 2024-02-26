@@ -11,9 +11,10 @@ antigen bundle chisui/zsh-nix-shell
 antigen bundle nix-community/nix-zsh-completions
 antigen apply
 
-# git aliases
+# useful aliases
 
 alias gs='git status'
+alias be='bundle exec'
 
 # emacs aliases
 # the wrapper script just adds a default -c argument

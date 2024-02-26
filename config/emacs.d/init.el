@@ -88,6 +88,15 @@
 (use-package which-key
   :config (which-key-mode))
 
+(use-package consult
+  :bind (("C-x b"   . consult-buffer)
+         ("C-x p b" . consult-project-buffer)
+         ("M-g" . consult-imenu))
+  :hook (completion-list-mode . consult-preview-at-point-mode)
+  :config
+  (setq xref-show-xrefs-function #'consult-xref)
+  (setq xref-show-definitions-function #'consult-xref))
+
 ;; completion engine
 ;; orderless is spaced groups of chars
 
@@ -164,6 +173,10 @@
   (global-ligature-mode))
 
 ;;;; ide/editor 
+
+(use-package project
+  :config
+  (setq project-vc-extra-root-markers '("Gemfile" "package.json")))
 
 (use-package project-tab-groups
   :config
@@ -251,19 +264,32 @@
 
 ;;;; languages
 
+(use-package treesit-auto
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
+
 (use-package eglot
   :bind
   (:map eglot-mode-map
 	("s-," . xref-go-back)
 	("s-." . xref-find-definitions))
   :config
-  (setq eglot-autoshutdown t))
+  (setq eglot-autoshutdown t)
 
-;;
+  ;; custom servers
+  (add-to-list
+   'eglot-server-programs
+   '((ruby-mode ruby-ts-mode)
+     "bundle" "exec" "solargraph" "stdio")))
 
-(use-package robe
-  :hook ((ruby-mode-hook    . robe-mode)
-         (ruby-ts-mode-hook . robe-mode)))
+(use-package eglot-booster
+  :vc (:fetcher github :repo jdtsmith/eglot-booster)
+  :after eglot
+  :config
+  (eglot-booster-mode))
 
 ;;
 

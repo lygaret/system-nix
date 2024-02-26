@@ -1,0 +1,10 @@
+am-mfa () {
+  # fetch the otp from one password
+  op item get sb4ydwd4h2um6v76rrvhheyfci --otp | pbcopy - 
+
+  # announce that we got it
+  osascript -e 'display notification "MFA copied" with title "aws-mfa wrapper"' 
+
+  # run the updater and update shell env
+  aws-mfa && eval $(aws configure export-credentials --format=env --profile=default)
+}

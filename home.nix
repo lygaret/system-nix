@@ -1,4 +1,4 @@
-{ config, pkgs, devenvPkgs, system, runtimePath, ... }:
+{ config, pkgs, system, runtimePath, ... }:
 {
   home.username = "jonathan";
   home.homeDirectory = "/Users/jonathan";
@@ -7,8 +7,10 @@
   home.packages = with pkgs; [
     direnv
     cachix
-    devenvPkgs.default
+    devenv
     node2nix
+
+    emacs-lsp-booster
 
     bat   # cat with source highlighting
     delta # diff with source highlighting, same color schemes as bat
