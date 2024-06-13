@@ -1,8 +1,11 @@
-fpath+=($HOME/local/system/config/zsh.d/functions)
-fpath+=($HOME/local/system/config/zsh.d/plugins)
-
 autoload -Uz compinit; compinit
 autoload -Uz promptinit; promptinit
+autoload -Uz run-help
+# autoload site-functions; variable set in `.zshenv`
+autoload -Uz ${=$(cd "$ZSH_SITE_FUNCTIONS" && echo *)}
+
+setopt append_history share_history histignoredups
+
 
 prompt faraday
 
@@ -48,3 +51,21 @@ alias ls='eza -l ${eza_params}'
 alias lx='eza -lbhHigUmuSa@'
 alias lt='eza --tree'
 alias tree='eza --tree'
+
+
+() {
+    # add our local functions dir to the fpath
+    local funcs=$HOME/lib/zsh/functions
+
+
+    # Now autoload them
+    if [[ -d $funcs ]]; then
+        autoload ${=$(cd "$funcs" && echo *)}
+    fi
+}
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

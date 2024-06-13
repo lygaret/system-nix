@@ -15,7 +15,15 @@
     bat   # cat with source highlighting
     delta # diff with source highlighting, same color schemes as bat
     eza   # better ls
+    fzf
     neofetch
+    miniserve # serve a directory over http
+
+    ollama
+    aichat
+
+    rustup
+    python3
 
     git
     htop
@@ -34,8 +42,8 @@
         RunOnLoad          = true;
 
         ProgramArguments   = [
-          "/bin/zsh" "--login" "-i" "-c"
-          "/Applications/Emacs.app/Contents/MacOS/Emacs --daemon"
+          "/bin/zsh" "--login" "-c"
+          "/Applications/Emacs.app/Contents/MacOS/Emacs --fg-daemon"
         ];
 
         StandardOutPath    = "/tmp/emacs-daemon.stdout.log";

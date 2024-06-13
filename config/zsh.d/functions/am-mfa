@@ -6,5 +6,5 @@ am-mfa () {
   osascript -e 'display notification "MFA copied" with title "aws-mfa wrapper"' 
 
   # run the updater and update shell env
-  aws-mfa && eval $(aws configure export-credentials --format=env --profile=default)
+  aws-mfa $@
 }

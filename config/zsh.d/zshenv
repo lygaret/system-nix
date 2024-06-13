@@ -1,21 +1,37 @@
 # nix for some reason doesn't include the profile entry
-source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+# source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
 # environment management from home-manager
 source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
 
 # path
+path+=(~/local/bin)
 path+=(~/.amplify/bin)
-path+=(~/.nix-profile/bin)
+path+=(~/.rustup/bin)
+# path+=(~/.nix-profile/bin)
+path+=(/opt/homebrew/bin)
 export PATH
 
+# for guile, home manager doesn't have it
+export GUILE_LOAD_PATH="/opt/homebrew/share/guile/site/3.0"
+export GUILE_LOAD_COMPILED_PATH="/opt/homebrew/lib/guile/3.0/site-ccache"
+export GUILE_SYSTEM_EXTENSIONS_PATH="/opt/homebrew/lib/guile/3.0/extensions"
+
+# FPATH is already tied to fpath, but this adds a uniqueness constraint
+typeset -TUg +x FPATH=$FPATH fpath
+
 # fpath
-fpath+=(~/local/system/config/zsh.d/plugins)
-fpath+=(~/local/system/config/zsh.d/functions)
+local siteplugs=$HOME/local/system/config/zsh.d/plugins
+fpath+=($siteplugs)
+
+local sitefuncs=$HOME/local/system/config/zsh.d/functions
+export ZSH_SITE_FUNCTIONS=$sitefuncs
+fpath+=($sitefuncs)
 
 # editor env
 export EMACS_BIN_DIR=/Applications/Emacs.app/Contents/MacOS
 
 # install shell hooks (path overrides)
 eval "$(/opt/homebrew/bin/brew shellenv)"
-eval "$(direnv hook zsh)"
+# eval "$(direnv hook zsh)"
+. "$HOME/.cargo/env"
